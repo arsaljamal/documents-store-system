@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_mo_kzh=j4(!ebzti*&6_a)^_06%!wa075*tw*ibg8#jtl9u-n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 
 # Application definition
@@ -59,7 +59,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8062',
+    'http://localhost:8000',
 )
 ROOT_URLCONF = 'admin.urls'
 
@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'admin.wsgi.application'
 DATABASES = {
     'default': {
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
 
         'NAME': 'docstore',
 
@@ -96,7 +96,7 @@ DATABASES = {
 
         'PASSWORD': 'admin',
 
-        'HOST': '127.0.0.1',
+        'HOST': 'psql',
 
         'PORT': '5432',
 
