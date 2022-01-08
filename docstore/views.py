@@ -71,7 +71,7 @@ def documents_detail(request, pk):
         if request.method == 'GET':
             document_serializer = DocumentsSerializer(document)
             return JsonResponse(document_serializer.data)
-    except Folders.DoesNotExist:
+    except Documents.DoesNotExist:
         return JsonResponse({'message': 'The document does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -103,5 +103,27 @@ def topics_detail(request, pk):
         if request.method == 'GET':
             topic_serializer = TopicsSerializer(topic)
             return JsonResponse(topic_serializer.data)
-    except Folders.DoesNotExist:
+    except Topics.DoesNotExist:
         return JsonResponse({'message': 'The topic does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def search_documents(request):
+    folder = None
+    topic = None
+    try:
+        folder = Folders.objects.get(name=request.query_params.get('folderName'))
+    except Folders.DoesNotExist:
+        return JsonResponse({'message': 'The folder does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    try:
+        topic = Topics.objects.filter(shortDescription=request.query_params.get('shortDescription'), folder=folder)
+    except Topics.DoesNotExist:
+        return JsonResponse({'message': 'The topic does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        documentList = []
+        for tp in topic:
+            document_serializer = DocumentsSerializer(tp.document)
+            documentList.append(document_serializer.data)
+
+        return JsonResponse(documentList, safe=False)

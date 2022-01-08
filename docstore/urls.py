@@ -8,5 +8,5 @@ urlpatterns = [
     re_path(r'^api/document/(?P<pk>[0-9]+)$', views.documents_detail),
     re_path(r'^api/topics', views.topics_list),
     re_path(r'^api/topic/(?P<pk>[0-9]+)$', views.topics_detail),
-    re_path(r'^api/search', views.documents_list)
+    re_path(r'^api/search/documents', views.search_documents)
 ]
