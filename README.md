@@ -50,5 +50,6 @@ result :
     }
 ]
 `
-Dockerizing reference :
+
+### Dockerizing reference :
 https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
